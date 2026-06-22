@@ -1,0 +1,41 @@
+name: Sync MAF Episodes
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Descobrir e clonar repos maf-video-*
+        run: |
+          repos=$(curl -s \
+            "https://api.github.com/users/carlosmachel/repos?per_page=100&type=public" \
+            | jq -r '.[].name | select(test("^maf-video-[0-9]+$"))' \
+            | sort -t'-' -k3 -n)
+
+          rm -rf episodios/
+          mkdir -p episodios
+
+          for name in $repos; do
+            echo "Clonando $name..."
+            git clone --depth 1 \
+              "https://github.com/carlosmachel/$name" \
+              "episodios/$name"
+            rm -rf "episodios/$name/.git"
+          done
+
+      - name: Commit e push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add episodios/
+          git diff --staged --quiet || \
+            git commit -m "sync: $(date +'%Y-%m-%d')"
+          git push
