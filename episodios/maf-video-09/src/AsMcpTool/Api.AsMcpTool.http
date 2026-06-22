@@ -1,0 +1,6 @@
+@Api.AsMcpTool_HostAddress = http://localhost:5007
+
+GET {{Api.AsMcpTool_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

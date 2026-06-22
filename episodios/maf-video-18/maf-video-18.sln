@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckpointRehydrate", "src\CheckpointRehydrate\CheckpointRehydrate.csproj", "{6056A763-EDE4-462A-90FF-1261185AE36C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckpointResume", "src\CheckpointResume\CheckpointResume.csproj", "{B0562328-1296-46C9-B6D4-2FCC21D5FEFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6056A763-EDE4-462A-90FF-1261185AE36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6056A763-EDE4-462A-90FF-1261185AE36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6056A763-EDE4-462A-90FF-1261185AE36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6056A763-EDE4-462A-90FF-1261185AE36C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0562328-1296-46C9-B6D4-2FCC21D5FEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0562328-1296-46C9-B6D4-2FCC21D5FEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0562328-1296-46C9-B6D4-2FCC21D5FEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0562328-1296-46C9-B6D4-2FCC21D5FEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
