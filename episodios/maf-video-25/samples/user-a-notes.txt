@@ -1,0 +1,108 @@
+Project Phoenix - Internal Planning Notes
+
+Overview
+
+Project Phoenix is the codename for our Q3 platform migration effort. The project lead is Alice Chen,
+supported by a cross-functional team spanning platform engineering, site reliability engineering, and
+customer support. The approved budget for Project Phoenix is $250,000, allocated across infrastructure
+spend, contractor hours, and a two-week production freeze window reserved for the cutover. This document
+captures the planning context, architecture decisions, rollout sequencing, risk register, and
+communication plan for the migration so that anyone joining the project mid-stream can get up to speed
+without scheduling a separate briefing.
+
+Background
+
+The order-processing service has run on a legacy on-premises cluster for almost six years. Over that
+time the service has accumulated a large amount of operational debt: manual failover procedures, an
+aging hardware generation that is no longer covered under our support contract, and a deployment
+pipeline that requires a human to babysit every release window. Incident reviews over the last two
+quarters repeatedly point back to the same root causes, which is part of why leadership approved the
+migration budget without much pushback this cycle.
+
+Migration Scope
+
+The migration will move our order-processing service from the legacy on-premises cluster to Azure
+Kubernetes Service. The scope includes the order intake API, the inventory reservation worker, the
+payment authorization adapter, and the nightly reconciliation job. Scope explicitly excludes the
+reporting warehouse and the customer-facing order history page, both of which will be migrated in a
+later phase once Phoenix proves out the pattern. The target completion date is September 15th, with a
+two-week stabilization period afterward before the legacy cluster is decommissioned.
+
+Architecture
+
+The new environment uses Azure Kubernetes Service with workload identity for authentication against
+downstream services, removing the need for long-lived service principal secrets. Each component is
+packaged as a container image built through the existing CI pipeline, with image scanning enforced as a
+merge gate. Configuration is externalized through environment-specific overlays so that the same image
+can be promoted from staging to production without a rebuild. Horizontal pod autoscaling is configured
+for the order intake API based on request queue depth, since that's historically where we've seen the
+sharpest traffic spikes during flash sales.
+
+Rollout Sequencing
+
+The rollout is staged in three waves. Wave one moves read-only traffic, such as order status lookups,
+to validate connectivity and latency without touching write paths. Wave two moves the inventory
+reservation worker, run in shadow mode alongside the legacy worker so that results can be diffed before
+cutover. Wave three is the full cutover of write traffic, including payment authorization, performed
+during the agreed freeze window. Each wave has an explicit go/no-go checklist that must be signed off
+by both Alice Chen and the on-call SRE lead before proceeding to the next wave.
+
+Rollback Plan
+
+Rollback plan: if error rates exceed 2% for more than 10 minutes after cutover, traffic is routed back
+to the legacy cluster automatically via the existing traffic manager profile. The legacy cluster will be
+kept in a warm standby state, fully patched and with database replication still active, for the entire
+two-week stabilization period so that a rollback does not also require restoring from backup. Database
+writes during the cutover window are dual-written to both the new and legacy databases to keep both
+sides consistent in case a rollback becomes necessary on short notice.
+
+Key Risks
+
+Key risks: the legacy database export job has historically taken longer than estimated, sometimes by as
+much as 40%, and that variance has not been fully explained despite two rounds of profiling. The
+contractor team's onboarding has been delayed by two weeks due to background check processing, which
+compresses the available time for the contractors to ramp up on the codebase before the freeze window
+opens. There is also a dependency risk: the payment authorization adapter relies on a third-party SDK
+that has an open compatibility issue with the AKS network policy configuration, and the vendor's fix is
+not yet on a committed release date.
+
+Testing Strategy
+
+Testing for Phoenix includes load testing against a traffic replay of the previous Black Friday peak,
+chaos testing of the pod eviction and node drain paths, and a full reconciliation dry run comparing
+output between the legacy and new reconciliation jobs over a rolling seven-day window. Any discrepancy
+above a half percent threshold blocks promotion to the next wave until the root cause is understood and
+either fixed or explicitly accepted by the project lead.
+
+Stakeholders and Communication
+
+Stakeholders include the order-processing engineering team, the SRE on-call rotation, the payments team,
+and customer support leadership, who need advance notice of the freeze window so they can staff
+accordingly. Status updates go out every Friday in the #project-phoenix channel, summarizing wave
+progress, open risks, and any changes to the target date. Any change to the September 15th completion
+date requires sign-off from Alice Chen and a heads-up to customer support at least five business days in
+advance.
+
+Success Criteria
+
+Success criteria for Phoenix are defined as: zero data loss during cutover, error rates within 0.5% of
+the pre-migration baseline for two consecutive weeks post-cutover, and full decommissioning of the
+legacy cluster within the approved budget. A secondary, non-blocking success criterion is a measurable
+reduction in deployment lead time, since the new pipeline should cut release turnaround from roughly
+two hours to under fifteen minutes.
+
+Open Questions
+
+Open questions still being tracked include whether the reporting warehouse migration should be pulled
+forward into this budget cycle given how much groundwork Phoenix is already laying, and whether the
+contractor engagement should be extended past the original end date to cover the stabilization period.
+Both questions are expected to be resolved at the next steering committee review.
+
+Budget Breakdown
+
+Of the $250,000 approved budget, roughly $140,000 is earmarked for AKS compute and networking costs
+across staging and production, $70,000 covers the contractor engagement for the duration of the
+migration, and the remaining $40,000 is held as contingency for the production freeze window, including
+on-call coverage and any emergency vendor support that might be needed during cutover. Alice Chen
+reviews the contingency spend monthly and reports any material variance to the steering committee
+alongside the regular Friday status update.

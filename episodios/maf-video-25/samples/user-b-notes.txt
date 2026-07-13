@@ -1,0 +1,99 @@
+Project Atlas - Internal Planning Notes
+
+Overview
+
+Project Atlas is the codename for the new customer analytics dashboard. The project lead is Bruno
+Alves, working alongside a small team of frontend engineers, a data scientist, and a product designer.
+The approved budget for Project Atlas is $180,000, covering design, frontend engineering, and a
+third-party data visualization license. This document captures the product scope, the data pipeline
+design, the rollout plan, the risk register, and the metrics we will use to judge whether Atlas is
+actually moving the needle for account managers once it ships.
+
+Background
+
+Account managers currently piece together churn signals from four different internal tools and a
+handful of manually maintained spreadsheets. That process is slow, error prone, and means churn signals
+often surface days after they would have been actionable. Atlas exists to collapse that workflow into a
+single dashboard that surfaces the same signals automatically, with enough lead time for an account
+manager to actually intervene before a customer disengages entirely.
+
+Product Scope
+
+The dashboard will surface churn predictions and usage trends to account managers. In scope for the
+initial release are: a churn risk score per account updated daily, a usage trend chart covering the
+trailing ninety days, and an alerting rule that flags any account whose churn score crosses a
+configurable threshold. Out of scope for this release are predictive lifetime value modeling and
+automated outreach triggers, both of which are being considered for a follow-up project once Atlas has
+been validated in production. The target launch date is October 1st.
+
+Data Pipeline
+
+Usage events are ingested from the product telemetry stream and aggregated nightly into a feature store
+that feeds the churn prediction model. The model itself is a gradient-boosted classifier retrained
+weekly on a rolling twelve-month window of labeled churn outcomes. Feature freshness is monitored
+separately from model accuracy, since a stale feature pipeline can silently degrade predictions without
+the model itself ever being retrained on bad data. Data visualization in the dashboard is rendered
+client-side using the licensed third-party charting library, chosen specifically because it handles
+large time-series datasets without the performance issues we hit with our previous in-house charting
+components.
+
+Rollout Plan
+
+The rollout will start with a beta group of 12 enterprise accounts before going to general availability.
+Beta accounts were selected to cover a mix of account sizes, industries, and existing churn risk levels,
+so that feedback reflects more than just our friendliest customers. Beta feedback is collected through a
+combination of in-app surveys and a biweekly call with each participating account manager. General
+availability is gated on beta accounts reporting that the churn score meaningfully matches their own
+qualitative read of the account at least 80% of the time.
+
+Key Risks
+
+Key risks: the data visualization vendor's contract renewal is still pending legal review, and a delay
+there could push the licensing terms past the planned launch date. The churn prediction model's accuracy
+has not yet been validated against last quarter's actual outcomes, since the labeled data for that
+quarter only recently became available, and there is a chance the validation surfaces a meaningful
+accuracy gap that requires a model revision before general availability. There is also a staffing risk:
+the data scientist on the project is splitting time with another initiative, which has already pushed
+the model retraining work out by a week once this quarter.
+
+Testing Strategy
+
+Testing for Atlas includes a backtest of the churn model against the last four quarters of historical
+outcomes, a load test of the dashboard against a simulated account base ten times larger than our
+current customer count, and a manual accessibility review of the dashboard ahead of the beta launch.
+Any backtest accuracy below the agreed 80% threshold blocks the beta launch until the model team
+signs off on a remediation plan.
+
+Stakeholders and Communication
+
+Stakeholders include the account management leadership team, the data science team, and the customer
+success operations group, who will own the alerting workflow once an account is flagged. Status updates
+go out every other Friday in the #project-atlas channel, summarizing beta feedback, model performance,
+and any changes to the general availability timeline. Bruno Alves reviews beta feedback weekly with the
+account management leads and adjusts the dashboard's alert thresholds based on what the beta group
+reports as noisy or actionable.
+
+Success Criteria
+
+Success criteria for Atlas are defined as: the model's churn predictions aligning with account manager
+judgment at least 80% of the time during beta, a measurable reduction in the time it takes an account
+manager to identify an at-risk account, and a smooth transition from the 12-account beta to general
+availability without a feature freeze longer than one week. A secondary success criterion is account
+manager adoption, since a dashboard nobody opens isn't actually solving the original problem.
+
+Open Questions
+
+Open questions still being tracked include whether the alerting threshold should be configurable per
+account manager rather than fixed globally, and whether the predictive lifetime value modeling work
+should be pulled into this project's next phase given how much of the underlying feature pipeline is
+already shared. Both questions are expected to be resolved once the beta feedback has been fully
+reviewed.
+
+Budget Breakdown
+
+Of the $180,000 approved budget, roughly $90,000 covers the frontend engineering work, including the
+churn risk score views and the alerting configuration screen, $50,000 covers the third-party data
+visualization license for the first year, and the remaining $40,000 is allocated to the data scientist's
+time for model development and the weekly retraining pipeline. Bruno Alves tracks spend against this
+breakdown monthly and flags any overage to the account management leadership team before it becomes a
+blocker for the general availability launch.

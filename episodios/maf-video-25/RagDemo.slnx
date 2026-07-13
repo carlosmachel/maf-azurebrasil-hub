@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Artifacts/">
+    <File Path="docker-compose.yml" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="samples\user-a-notes.txt" />
+    <File Path="samples\user-b-notes.txt" />
+  </Folder>
+  <Project Path="src/RagDemo.Agent/RagDemo.Agent.csproj" />
+  <Project Path="src/RagDemo.Core/RagDemo.Core.csproj" />
+  <Project Path="src/RagDemo.Ingestion/RagDemo.Ingestion.csproj" />
+</Solution>
