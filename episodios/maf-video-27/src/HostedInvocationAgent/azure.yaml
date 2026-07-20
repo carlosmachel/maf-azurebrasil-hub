@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: hosted-invocation-agent
+services:
+    hosted-invocation-agent:
+        project: .
+        host: azure.ai.agent
+        language: docker
+        docker:
+            remoteBuild: true
+        uses:
+            - ai-project
+        container:
+            resources:
+                cpu: "0.5"
+                memory: 1Gi
+        kind: hosted
+        name: hosted-invocation-agent
+        protocols:
+            - protocol: invocations
+              version: 1.0.0
+        startupCommand: dotnet HostedInvocationAgent.dll
+    ai-project:
+        host: azure.ai.project
+        endpoint: ${AZURE_EXISTING_AIPROJECT_ENDPOINT}
+infra:
+    provider: microsoft.foundry

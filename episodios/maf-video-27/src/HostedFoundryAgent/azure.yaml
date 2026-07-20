@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: hosted-foundry-agent
+services:
+    hosted-foundry-agent:
+        project: .
+        host: azure.ai.agent
+        language: docker
+        docker:
+            remoteBuild: true
+        uses:
+            - ai-project
+        container:
+            resources:
+                cpu: "0.5"
+                memory: 1Gi
+        environmentVariables:
+            - name: AZURE_AI_MODEL_DEPLOYMENT_NAME
+              value: ${AZURE_AI_MODEL_DEPLOYMENT_NAME}
+            - name: PROMPT_AGENT_NAME
+              value: ${PROMPT_AGENT_NAME}
+        kind: hosted
+        name: hosted-foundry-agent
+        protocols:
+            - protocol: responses
+              version: 2.0.0
+        startupCommand: dotnet run
+    ai-project:
+        host: azure.ai.project
+        endpoint: ${AZURE_EXISTING_AIPROJECT_ENDPOINT}
+infra:
+    provider: microsoft.foundry
