@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/EvaluationSimpleEval/EvaluationSimpleEval.csproj" />
+  <Project Path="src/EvaluationToolCalling/EvaluationToolCalling.csproj" />
+  <Project Path="src/ExpectedOutputs/ExpectedOutputs.csproj" />
+</Solution>
