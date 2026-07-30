@@ -1,6 +1,8 @@
 # maf-azurebrasil-hub
 Hub with the code of every video in MAF Playlist that follow the pattern maf-video-x
 
+🌐 GitHub Pages: https://carlosmachel.github.io/maf-azurebrasil-hub/
+
 <!-- EPISODES:START -->
 ## 🎬 Episódios
 
