@@ -26,5 +26,6 @@ Hub with the code of every video in MAF Playlist that follow the pattern maf-vid
 - **Ep. 25 — [Permission-Aware RAG with SQL Server VECTOR + Microsoft Agent Framework](https://github.com/carlosmachel/maf-video-25)** — This demo shows how to build a RAG agent whose retrieval is filtered by per-user file permissions. Each user only receives answers grounded in documents they have access to — enforced at the SQL query level using the native `VECTOR` type in SQL Server 2025, with an optional in-memory caching layer that can be invalidated on demand.
 - **Ep. 26 — [maf-video-26](https://github.com/carlosmachel/maf-video-26)** — Confira o repositório do episódio.
 - **Ep. 27 — [maf-video-27](https://github.com/carlosmachel/maf-video-27)** — Confira o repositório do episódio.
-- **Ep. 28 — [maf-video-28](https://github.com/carlosmachel/maf-video-28)** — Confira o repositório do episódio.
+- **Ep. 28 — [maf-video-28](https://github.com/carlosmachel/maf-video-28)** — Sample code for a video walkthrough on **evaluating AI agents** built with the [Microsoft Agent Framework](https://github.com/microsoft/agent-framework) and Azure AI Foundry.
+- **Ep. 29 — [maf-video-29](https://github.com/carlosmachel/maf-video-29)** — Confira o repositório do episódio.
 <!-- EPISODES:END -->
