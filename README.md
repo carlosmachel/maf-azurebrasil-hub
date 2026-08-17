@@ -28,4 +28,5 @@ Hub with the code of every video in MAF Playlist that follow the pattern maf-vid
 - **Ep. 27 — [maf-video-27](https://github.com/carlosmachel/maf-video-27)** — Confira o repositório do episódio.
 - **Ep. 28 — [maf-video-28](https://github.com/carlosmachel/maf-video-28)** — Sample code for a video walkthrough on **evaluating AI agents** built with the [Microsoft Agent Framework](https://github.com/microsoft/agent-framework) and Azure AI Foundry.
 - **Ep. 29 — [maf-video-29](https://github.com/carlosmachel/maf-video-29)** — Confira o repositório do episódio.
+- **Ep. 30 — [maf-video-30](https://github.com/carlosmachel/maf-video-30)** — Confira o repositório do episódio.
 <!-- EPISODES:END -->
