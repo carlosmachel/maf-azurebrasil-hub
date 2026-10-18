@@ -12,12 +12,19 @@ Each episode lives in its own `maf-video-NN` repository. Every week a GitHub Act
 <!-- EPISODES:START -->
 ## 🎬 Episódios
 
+- **Ep. 01 — [Primeiro agente com ChatClientAgent](https://github.com/carlosmachel/maf-playlist/tree/main/src/MAF.01.Console)** — Agente de console com Azure OpenAI e instruções de sistema.
+- **Ep. 02 — [Sessões: salvar e retomar a conversa](https://github.com/carlosmachel/maf-playlist/tree/main/src/MAF.02.Console)** — Serializa a sessão do agente e retoma depois; versão com Persistent Agents do Foundry em src/MAF.02.AzureAiAgentPersistent.Console.
+- **Ep. 03 — [Agente numa API com tool e aprovação humana](https://github.com/carlosmachel/maf-playlist/tree/main/src/MAF.03.Functions.Api)** — Expõe o agente por HTTP com uma tool que exige aprovação (ApprovalRequiredAIFunction).
+- **Ep. 04 — [Middlewares](https://github.com/carlosmachel/maf-playlist/tree/main/src/UsingMiddlewares)** — Três camadas: middleware no IChatClient, no agente (guardrail) e nas chamadas de função.
+- **Ep. 05 — [Structured Output](https://github.com/carlosmachel/maf-playlist/tree/main/src/StructuredOutput)** — Extraindo uma ordem de serviço tipada a partir de imagem.
+- **Ep. 06 — [Memória e histórico com vetores](https://github.com/carlosmachel/maf-playlist/tree/main/Memory)** — AIContextProvider e VectorChatHistoryProvider para lembrar do usuário.
+- **Ep. 07 — [Streaming de respostas](https://github.com/carlosmachel/maf-playlist/tree/main/src/Streaming)** — Respostas em streaming com cliente web.
 - **Ep. 08 — [Microsoft Agent Framework - DevUI Demo](https://github.com/carlosmachel/maf-video-8)** — This repository contains the source code for the eighth video in the Microsoft Agent Framework playlist on the AzureBrasil.Cloud channel.
 - **Ep. 09 — [MAF Video 09 - Microsoft Agent Framework with Model Context Protocol](https://github.com/carlosmachel/maf-video-09)** — This repository contains the code for the ninth video in the Microsoft Agent Framework (MAF) playlist on the [AzureBrasil.Cloud](https://azurebrasil.cloud) channel.
 - **Ep. 10 — [Ep. 10 — Long-term memory with `ChatHistoryMemoryProvider`](https://github.com/carlosmachel/maf-video-10)** — > Part of the **Microsoft Agent Framework** video series on [AzureBrasil.Cloud](https://azurebrasil.cloud) (PT-BR). All episodes: [maf-azurebrasil-hub](https://carlosmachel.github.io/maf-azurebrasil-hub/)
 - **Ep. 11 — [Agent Skills — Microsoft.Agents.AI](https://github.com/carlosmachel/maf-video-11)** — Example of using **`FileAgentSkillsProvider`** from the [`Microsoft.Agents.AI`](https://www.nuget.org/packages/Microsoft.Agents.AI) package to give an AI agent "skills" via Markdown files.
 - **Ep. 12 — [Ep. 12 — Reasoning models + tools (multi-hop)](https://github.com/carlosmachel/maf-video-12)** — > Part of the **Microsoft Agent Framework** video series on [AzureBrasil.Cloud](https://azurebrasil.cloud) (PT-BR). All episodes: [maf-azurebrasil-hub](https://carlosmachel.github.io/maf-azurebrasil-hub/)
-- **Ep. 13 — [maf-video-13](https://github.com/carlosmachel/maf-video-13)** — Repositório para o vídeo 13 da série do Microsoft Agent Framework
+- **Ep. 13 — [Ep. 13 — Observabilidade com OpenTelemetry](https://github.com/carlosmachel/maf-video-13)** — Parte da série [Microsoft Agent Framework](https://www.youtube.com/playlist?list=PLagWy4RVE5D-zG5tHWz5f_Vt8Mp6p1F--) · índice de todos os episódios no [maf-azurebrasil-hub](https://github.com/carlosmachel/maf-azurebrasil-hub).
 - **Ep. 14 — [🧠 Compaction Pipeline — Conceitos (Agent Framework)](https://github.com/carlosmachel/maf-video-14)** — O **Compaction Pipeline** é uma estratégia para reduzir o histórico de conversas enviado para o LLM, mantendo o contexto essencial enquanto controla:
 - **Ep. 15 — [maf-video-15](https://github.com/carlosmachel/maf-video-15)** — Confira o repositório do episódio.
 - **Ep. 16 — [maf-video-16](https://github.com/carlosmachel/maf-video-16)** — Repository for the MAF video series - Ep 16

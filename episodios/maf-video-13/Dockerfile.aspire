@@ -1,0 +1,26 @@
+# Aspire Dashboard — standalone container
+#
+# Portas:
+#   4318 → Dashboard UI  (http://localhost:4318)
+#   4317 → OTLP receiver (usado pela aplicação para enviar telemetria)
+#
+# Uso:
+#   docker build -t aspire-dashboard .
+#   docker run -d --name aspire-dashboard -p 4318:18888 -p 4317:18889 aspire-dashboard
+#
+# Ou diretamente sem build:
+#   docker run -d --name aspire-dashboard \
+#     -p 4318:18888 -p 4317:18889 \
+#     -e DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true \
+#     --restart unless-stopped \
+#     mcr.microsoft.com/dotnet/aspire-dashboard:latest
+
+FROM mcr.microsoft.com/dotnet/aspire-dashboard:latest
+
+# Permite acesso ao dashboard sem autenticação (equivalente ao PS1)
+ENV DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+
+# 18888 → Dashboard UI
+# 18889 → OTLP HTTP receiver
+EXPOSE 18888
+EXPOSE 18889
