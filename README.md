@@ -1,7 +1,13 @@
-# maf-azurebrasil-hub
-Hub with the code of every video in MAF Playlist that follow the pattern maf-video-x
+# Microsoft Agent Framework — Series Hub
 
+[![Build Episodes](https://github.com/carlosmachel/maf-azurebrasil-hub/actions/workflows/build-episodes.yml/badge.svg)](https://github.com/carlosmachel/maf-azurebrasil-hub/actions/workflows/build-episodes.yml)
+
+Code for every episode of the **Microsoft Agent Framework** series on [AzureBrasil.Cloud](https://azurebrasil.cloud) (videos in PT-BR, code in C# / .NET 10).
+
+▶️ Playlists: [Microsoft Agent Framework](https://www.youtube.com/playlist?list=PLagWy4RVE5D-zG5tHWz5f_Vt8Mp6p1F--) · [Microsoft Foundry](https://www.youtube.com/playlist?list=PLagWy4RVE5D9gpd0t82q6PHEVTuNNArbi)
 🌐 GitHub Pages: https://carlosmachel.github.io/maf-azurebrasil-hub/
+
+Each episode lives in its own `maf-video-NN` repository. Every week a GitHub Action copies them into [`episodios/`](episodios) and another one builds all of them with .NET 10. Episodes 1–7 are in [maf-playlist](https://github.com/carlosmachel/maf-playlist).
 
 <!-- EPISODES:START -->
 ## 🎬 Episódios
