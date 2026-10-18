@@ -43,6 +43,31 @@ readme_items=()
 card_items=()
 missing_readme=()
 
+# ---- Ep. 01–07: estrutura antiga, todos no repo maf-playlist ----
+PLAYLIST_URL="https://github.com/$GITHUB_USER/maf-playlist/tree/main"
+legacy_episodes=(
+  "01|Primeiro agente com ChatClientAgent|src/MAF.01.Console|Agente de console com Azure OpenAI e instruções de sistema."
+  "02|Sessões: salvar e retomar a conversa|src/MAF.02.Console|Serializa a sessão do agente e retoma depois; versão com Persistent Agents do Foundry em src/MAF.02.AzureAiAgentPersistent.Console."
+  "03|Agente numa API com tool e aprovação humana|src/MAF.03.Functions.Api|Expõe o agente por HTTP com uma tool que exige aprovação (ApprovalRequiredAIFunction)."
+  "04|Middlewares|src/UsingMiddlewares|Três camadas: middleware no IChatClient, no agente (guardrail) e nas chamadas de função."
+  "05|Structured Output|src/StructuredOutput|Extraindo uma ordem de serviço tipada a partir de imagem."
+  "06|Memória e histórico com vetores|Memory|AIContextProvider e VectorChatHistoryProvider para lembrar do usuário."
+  "07|Streaming de respostas|src/Streaming|Respostas em streaming com cliente web."
+)
+
+for entry in "${legacy_episodes[@]}"; do
+  IFS='|' read -r num title path description <<< "$entry"
+  ep_label="Ep. $num"
+  repo_url="$PLAYLIST_URL/$path"
+  readme_items+=("- **$ep_label — [$title]($repo_url)** — $description")
+  card_items+=("      <article class=\"card\">
+        <span class=\"ep-num\">$ep_label</span>
+        <h2>$(printf '%s' "$title" | html_escape)</h2>
+        <p>$(printf '%s' "$description" | html_escape)</p>
+        <a class=\"repo-link\" href=\"$repo_url\" target=\"_blank\" rel=\"noopener noreferrer\">Ver código no maf-playlist ↗</a>
+      </article>")
+done
+
 for name in "${episodes[@]}"; do
   episode_readme="$EPISODES_DIR/$name/README.md"
   title="$name"

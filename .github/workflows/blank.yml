@@ -22,7 +22,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Descobrir e clonar repos maf-video-*
+      - name: Descobrir e clonar repos maf-video-* e maf-playlist
         run: |
           repos=$(curl -s \
             "https://api.github.com/users/carlosmachel/repos?per_page=100&type=public" \
@@ -39,6 +39,10 @@ jobs:
               "episodios/$name"
             rm -rf "episodios/$name/.git"
           done
+
+          # Episódios 01–07 ficam juntos no repo maf-playlist (estrutura antiga)
+          git clone --depth 1 https://github.com/carlosmachel/maf-playlist episodios/maf-playlist
+          rm -rf episodios/maf-playlist/.git
 
       - name: Gerar README e página do GitHub Pages
         run: |

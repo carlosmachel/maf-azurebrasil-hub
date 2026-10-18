@@ -34,7 +34,7 @@ jobs:
             echo "|----------|---------|-------|"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          for dir in $(ls -d episodios/maf-video-* | sort -t- -k3 -n); do
+          for dir in $( [ -d episodios/maf-playlist ] && echo episodios/maf-playlist; ls -d episodios/maf-video-* | sort -t- -k3 -n); do
             name=$(basename "$dir")
             target=$(find "$dir" -maxdepth 1 \( -name '*.sln' -o -name '*.slnx' \) | head -1)
             [ -z "$target" ] && target=$(find "$dir" -name '*.csproj' -not -path '*/obj/*' | head -1)
